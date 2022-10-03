@@ -24,9 +24,11 @@ const { title } = Astro.props;
   <body>
     <slot />
 
-    <p class='max-w-4xl mx-6 border-t border-gray-400 text-center pt-5 pb-10'>
-      Built by <a href='https://www.chizi.dev' class='underline'>Chizi Victor</a>
-    </p>
+    <footer>
+      <p class='border-t border-gray-400 text-center pt-5 pb-10'>
+        Built by <a href='https://www.chizi.dev' class='underline'>Chizi Victor</a>
+      </p>
+    </footer>
 
     <style is:global>
       :root {
@@ -42,7 +44,8 @@ const { title } = Astro.props;
         font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
           Bitstream Vera Sans Mono, Courier New, monospace;
       }
-      main {
+      main,
+      footer {
         margin: auto;
         padding: 1.5rem;
         max-width: 56rem;
