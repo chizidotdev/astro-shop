@@ -1,12 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import type { Props } from '../components/Card.astro';
 import Banner from '../components/Banner.astro';
+
+const { products } = await fetch('https://dummyjson.com/products/?limit=12&skip=2').then((res) =>
+  res.json()
+);
+
+console.log(products[0]);
 ---
 
 <Layout title='Welcome to Astro.'>
   <main>
     <Banner />
+
+    <section class='my-10 grid grid-cols-2 md:grid-cols-3 gap-10 lg:gap-20'>
+      {
+        products?.map((item: Props) => {
+          return <Card {...item} />;
+        })
+      }
+    </section>
   </main>
 </Layout>
 
@@ -14,6 +29,6 @@ import Banner from '../components/Banner.astro';
   main {
     margin: auto;
     padding: 1.5rem;
-    max-width: 65rem;
+    max-width: 55rem;
   }
 </style>
