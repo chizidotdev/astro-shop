@@ -1,0 +1,64 @@
+---
+import { formatter } from '../../components/Card.astro';
+import Layout from '../../layouts/Layout.astro';
+
+export interface Props {
+  id: number;
+  title: string;
+  description: string;
+  images: string[];
+  price: number;
+}
+
+export async function getStaticPaths() {
+  const { products } = await fetch('https://dummyjson.com/products/?limit=10').then((res) =>
+    res.json()
+  );
+
+  return products?.map((product: Props) => ({ params: { id: product.id.toString() } }));
+}
+
+const { id } = Astro.params;
+
+const product: Props = await fetch(`https://dummyjson.com/products/${id}`).then((res) =>
+  res.json()
+);
+const { title, description, price, images } = product;
+---
+
+<Layout title={title}>
+  <main class='flex flex-col'>
+    <a
+      href='/'
+      class='w-max self-end flex items-center mt-5 gap-0 cursor-pointer hover:gap-1 transition-all duration-200'
+    >
+      <box-icon name='chevron-left' color='white' />
+      Back
+    </a>
+
+    <section class='grid sm:grid-cols-2 gap-10 my-10'>
+      <div>
+        <img src={images[0]} alt={title} class='w-full object-cover' />
+
+        <div class='flex justify-between mt-5'>
+          {images.map((image) => <img src={image} alt={title} class='w-1/5 object-cover' />)}
+        </div>
+      </div>
+
+      <div>
+        <h1 class='text-4xl font-bold'>
+          {title}
+        </h1>
+
+        <p class='mb-5'>
+          {description}
+        </p>
+
+        <p class='text-xl font-bold'>
+          {formatter.format(price)}
+        </p>
+      </div>
+    </section>
+  </main>
+  <script src='https://unpkg.com/boxicons@2.1.4/dist/boxicons.js'></script>
+</Layout>

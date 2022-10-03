@@ -4,11 +4,9 @@ import Card from '../components/Card.astro';
 import type { Props } from '../components/Card.astro';
 import Banner from '../components/Banner.astro';
 
-const { products } = await fetch('https://dummyjson.com/products/?limit=12&skip=2').then((res) =>
+const { products } = await fetch('https://dummyjson.com/products/?limit=9&skip=1').then((res) =>
   res.json()
 );
-
-console.log(products[0]);
 ---
 
 <Layout title='Welcome to Astro.'>
@@ -24,11 +22,3 @@ console.log(products[0]);
     </section>
   </main>
 </Layout>
-
-<style>
-  main {
-    margin: auto;
-    padding: 1.5rem;
-    max-width: 55rem;
-  }
-</style>
